@@ -1,0 +1,6 @@
+﻿MONO_LOG_LEVEL=
+MONO_LOG_MASK=gc
+MONO_GC_PARAMS=nursery-size=8m
+MONO_GC_PARAMS=soft-heap-limit=128m
+MONO_GC_PARAMS=evacuation-threshold=75
+MONO_GC_PARAMS=bridge-implementation=tarjan

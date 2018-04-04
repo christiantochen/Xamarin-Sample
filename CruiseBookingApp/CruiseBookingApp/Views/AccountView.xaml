@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="CruiseBookingApp.Views.AccountView"
+             xmlns:controls="clr-namespace:CruiseBookingApp.Controls"
+             Title="{Binding Title}">
+	<ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="8" BackgroundColor="{StaticResource BackgroundColor}">
+                <Frame CornerRadius="0" Padding="0">
+                    <Frame.HasShadow>
+                        <OnPlatform x:TypeArguments="x:Boolean" iOS="false" />
+                    </Frame.HasShadow>
+                    <Grid BackgroundColor="{StaticResource AccentColor}" 
+                          Padding="16" RowSpacing="0" ColumnSpacing="0">
+                        <Label Text="{Binding User.FullName}"
+                               FontFamily="{StaticResource RobotoBold}" 
+                               FontSize="{StaticResource LargeSize}" 
+                               TextColor="{StaticResource WhiteColor}"/>
+                        <controls:ButtonFrame Text="Edit" Grid.Column="1" Grid.RowSpan="3"
+                               TextColor="{StaticResource WhiteColor}"
+                               Padding="8,0,0,8"
+                               VerticalOptions="Start"
+                               HorizontalOptions="End"/>
+                        <Label Text="{Binding User.Email}"
+                               FontFamily="{StaticResource RobotoRegular}" 
+                               FontSize="{StaticResource SmallSize}" 
+                               TextColor="{StaticResource WhiteColor}"
+                               Grid.Row="1"/>
+                        <Label Text="{Binding User.PhoneNumber}" Margin="0,8,0,0"
+                               FontFamily="{StaticResource RobotoRegular}" 
+                               FontSize="{StaticResource SmallSize}" 
+                               TextColor="{StaticResource WhiteColor}"
+                               Grid.Row="2"/>
+                    </Grid>
+                </Frame>
+                <controls:ExtendedButton Text="Logout" 
+                                         CornerRadius="0"
+                                         BorderColor="#D0D0D0" 
+                                         BorderWidth="1"
+                                         TextColor="{StaticResource AccentColor}"
+                                         Command="{Binding LogoutCommand}"
+                                         VerticalOptions="EndAndExpand">
+                    <controls:ExtendedButton.Margin>
+                        <OnPlatform x:TypeArguments="Thickness" Android="-5,-6,-5,-7" />
+                    </controls:ExtendedButton.Margin>
+                </controls:ExtendedButton>
+            </StackLayout>
+        </ScrollView>
+	</ContentPage.Content>
+</ContentPage>

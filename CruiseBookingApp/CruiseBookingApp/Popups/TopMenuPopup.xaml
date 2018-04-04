@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="CruiseBookingApp.Popups.TopMenuPopup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:CruiseBookingApp.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    CloseWhenBackgroundIsClicked="true"
+    HasSystemPadding="false">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation PositionIn="Top" PositionOut="Top" />
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Content>
+        <StackLayout Padding="16,32,16,16" Orientation="Horizontal" VerticalOptions="Start" HorizontalOptions="FillAndExpand" BackgroundColor="#212C37">
+            <Label Text="Version 1.0" TextColor="White" />
+            <controls:ButtonFrame Text="Logout" TextColor="{StaticResource WhiteColor}" HorizontalOptions="EndAndExpand" Command="{Binding LogoutCommand}" />
+        </StackLayout>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

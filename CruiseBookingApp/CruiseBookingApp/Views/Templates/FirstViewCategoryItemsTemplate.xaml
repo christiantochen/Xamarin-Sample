@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="CruiseBookingApp.Views.Templates.FirstViewCategoryItemsTemplate"
+    xmlns:controls="clr-namespace:CruiseBookingApp.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+    <StackLayout Spacing="0" Margin="0">
+        <controls:ExtendedButton 
+            Text="{Binding Name}" Icon="md-chevron-right" 
+            IconOrientation="Right" Padding="16" IconColor="Black"
+            CornerRadius="0" BackgroundColor="Transparent"/>
+        <Grid x:Name="CategoryItemGrid" ColumnSpacing="16" Padding="16,0"/>
+    </StackLayout>
+</ViewCell>

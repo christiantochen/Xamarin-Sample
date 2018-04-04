@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="CruiseBookingApp.Views.LoginView"
+    xmlns:behaviors="clr-namespace:Corcav.Behaviors;assembly=Corcav.Behaviors"
+    xmlns:controls="clr-namespace:CruiseBookingApp.Controls;assembly=CruiseBookingApp"  
+    xmlns:extensions="clr-namespace:CruiseBookingApp.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Title="{Binding Title}">
+	<ContentPage.Content>
+        <Grid
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Image
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                HeightRequest="96"
+                WidthRequest="96"
+                Aspect="AspectFit"
+                Source="icon"/>
+            <StackLayout x:Name="LoginForm" Grid.Row="1" Padding="16" Spacing="8">
+                <StackLayout Spacing="0">
+                    <controls:ExtendedEntry 
+                        x:Name="UsernameEntry" 
+                        Placeholder="Username"
+                        ReturnType="Next"
+                        Keyboard="Email"
+                        Text="{Binding UserName.Value, Mode=TwoWay}" 
+                        IsValid="{Binding UserName.IsValid, Mode=TwoWay}">
+                        <behaviors:Interaction.Behaviors>
+                            <behaviors:BehaviorCollection>
+                                <behaviors:EventToCommand 
+                                    EventName="Unfocused" 
+                                    Command="{Binding ValidateCommand}"
+                                    CommandParameter="{Binding UserName}"/>
+                            </behaviors:BehaviorCollection>
+                        </behaviors:Interaction.Behaviors>
+                    </controls:ExtendedEntry>
+                    <Label 
+                        Text="{Binding UserName.Errors, Converter={StaticResource ValidatableObjectErrorMessageConverter}}" 
+                        FontSize="{StaticResource SmallSize}"
+                        TextColor="{StaticResource ValidationErrorColor}"
+                        HorizontalOptions="End" Margin="0"
+                        IsVisible="{Binding Path=IsValid, Source={Reference UsernameEntry}, Converter={StaticResource InverseBooleanConverter}" />
+                </StackLayout>
+                <StackLayout Spacing="0">
+                    <controls:ExtendedEntry
+                        x:Name="PasswordEntry" 
+                        Placeholder="Password"
+                        Text="{Binding Password.Value, Mode=TwoWay}"
+                        IsValid="{Binding Password.IsValid, Mode=TwoWay}"
+                        IsPassword="true">
+                        <behaviors:Interaction.Behaviors>
+                            <behaviors:BehaviorCollection>
+                                <behaviors:EventToCommand 
+                                    EventName="Unfocused" 
+                                    Command="{Binding ValidateCommand}"
+                                    CommandParameter="{Binding Password}"/>
+                                <behaviors:EventToCommand 
+                                    EventName="Completed" 
+                                    Command="{Binding LogInCommand}"
+                                    CommandParameter=""/>
+                            </behaviors:BehaviorCollection>
+                        </behaviors:Interaction.Behaviors>
+                    </controls:ExtendedEntry>
+                    <Label 
+                        Text="{Binding Password.Errors, Converter={StaticResource ValidatableObjectErrorMessageConverter}}" 
+                        FontSize="{StaticResource SmallSize}"
+                        TextColor="{StaticResource ValidationErrorColor}"
+                        HorizontalOptions="End" Margin="0"
+                        IsVisible="{Binding Path=IsValid, Source={Reference PasswordEntry}, Converter={StaticResource InverseBooleanConverter}" />
+                </StackLayout>
+                <controls:ButtonFrame 
+                    BackgroundColor="{StaticResource AccentColor}"
+                    Padding="10" CornerRadius="10" Margin="0,8"
+                    Command="{Binding LogInCommand}"
+                    Text="{extensions:Translate LogIn}"
+                    TextColor="{StaticResource WhiteColor}"/>
+                <Grid ColumnSpacing="0">
+                    <controls:ButtonFrame  
+                        Padding="8,8,0,8"
+                        Text="Create Account" FontSize="{StaticResource SmallSize}"
+                        HorizontalOptions="Start"/>
+                    <controls:ButtonFrame 
+                        Padding="8,8,0,8"
+                        Text="Need Help?" FontSize="{StaticResource SmallSize}"
+                        HorizontalOptions="End" Grid.Column="1"/>
+                </Grid>
+                <ContentView>
+                    <OnPlatform x:TypeArguments="View">
+                        <OnPlatform.iOS>
+                            <controls:KeyboardOverlappingBox/>
+                        </OnPlatform.iOS>
+                    </OnPlatform>
+                </ContentView>
+            </StackLayout>
+        </Grid>
+	</ContentPage.Content>
+</ContentPage>

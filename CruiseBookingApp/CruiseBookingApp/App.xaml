@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:CruiseBookingApp.Controls"
+             xmlns:converters="clr-namespace:CruiseBookingApp.Converters"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
+             xmlns:views="clr-namespace:CruiseBookingApp.Views"
+             x:Class="CruiseBookingApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- COLORS -->
+            <Color x:Key="AccentColor">#FF5050</Color>
+            <Color x:Key="BackgroundColor">#EBEBEB</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BlackTextColor">#253748</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="ValidationErrorColor">#FF5050</Color>
+
+            <Color x:Key="NavigationBarBackgroundColor">#FFFF5050</Color>
+            <Color x:Key="NavigationBarTextColor">#FFFFFF</Color>
+
+            <!-- CONVERTERS -->
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters:ValidatableObjectErrorMessageConverter x:Key="ValidatableObjectErrorMessageConverter" />
+            
+            <!-- FONT SIZE -->
+            <OnPlatform x:Key="SmallSize"
+                        x:TypeArguments="x:Double"
+                        iOS="11"
+                        Android="12"
+                        WinPhone="12"/>
+
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="12"
+                        Android="14"
+                        WinPhone="14"/>
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="14"
+                        Android="16"
+                        WinPhone="16"/>
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="16"
+                        Android="18"
+                        WinPhone="18"/>
+
+            <OnPlatform x:Key="LargerSize"
+                        x:TypeArguments="x:Double"
+                        iOS="18"
+                        Android="20"
+                        WinPhone="20"/>
+
+            <OnPlatform x:Key="BigSize"
+                        x:TypeArguments="x:Double"
+                        iOS="20"
+                        Android="24"
+                        WinPhone="24"/>
+
+            <OnPlatform x:Key="ExtraBigSize"
+                      x:TypeArguments="x:Double"
+                      iOS="24"
+                      Android="32"
+                      WinPhone="32"/>
+
+            <OnPlatform x:Key="HugeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="32"
+                        Android="48"
+                        WinPhone="48"/>
+
+            <!-- FONT -->
+            <OnPlatform x:Key="RobotoRegular"
+                        x:TypeArguments="x:String"
+                        iOS="Roboto-Regular"
+                        Android="Fonts/Roboto-Regular.ttf#Roboto"/>
+            
+            <OnPlatform x:Key="RobotoBold"
+                        x:TypeArguments="x:String"
+                        iOS="Roboto-Bold"
+                        Android="Fonts/Roboto-Bold.ttf#Roboto"/>
+
+            <OnPlatform x:Key="RobotoItalic"
+                        x:TypeArguments="x:String"
+                        iOS="Roboto-Italic"
+                        Android="Fonts/Roboto-Italic.ttf#Roboto"/>
+
+            <OnPlatform x:Key="RobotoMedium"
+                        x:TypeArguments="x:String"
+                        iOS="Roboto-Medium"
+                        Android="Fonts/Roboto-Medium.ttf#Roboto"/>
+
+            <!-- STYLES -->
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource NavigationBarBackgroundColor}"  />
+                <Setter Property="BarTextColor" Value="{DynamicResource NavigationBarTextColor}"/>
+            </Style>
+            
+            <Style TargetType="{x:Type views:CustomNavigationPage}" BasedOn="{StaticResource Xamarin.Forms.NavigationPage}">
+            </Style>
+            
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <OnPlatform.Android>60</OnPlatform.Android>
+                            <OnPlatform.iOS>45</OnPlatform.iOS>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoMedium}" />
+            </Style>
+
+            <Style TargetType="{x:Type controls:ExtendedButton}" BasedOn="{StaticResource Xamarin.Forms.Button}">
+            </Style>
+            
+            <Style TargetType="{x:Type Entry}">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <OnPlatform.Android>44</OnPlatform.Android>
+                            <OnPlatform.iOS>33</OnPlatform.iOS>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoBold}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Opacity" Value="0.6" />
+                <Style.Triggers>
+                    <Trigger TargetType="Entry"
+                             Property="IsFocused" 
+                             Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type DatePicker}">
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Opacity" Value="0.6" />
+                <Style.Triggers>
+                    <Trigger TargetType="DatePicker"
+                             Property="IsFocused" 
+                             Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type Picker}">
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Opacity" Value="0.6" />
+                <Style.Triggers>
+                    <Trigger TargetType="Picker"
+                             Property="IsFocused" 
+                             Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+            </Style>
+            
+            <Style TargetType="{x:Type controls:ButtonFrame}">
+                <Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoBold}" />
+            </Style>
+
+            <Style TargetType="{x:Type controls:ExtendedEntry}" BasedOn="{StaticResource Xamarin.Forms.Entry}">
+                <Setter Property="FocusLineColor" Value="{StaticResource AccentColor}" />
+                <Setter Property="InvalidColor" Value="{StaticResource ValidationErrorColor}" />
+            </Style>
+
+            <Style TargetType="{x:Type controls:ExtendedPicker}" BasedOn="{StaticResource Xamarin.Forms.Picker}">
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+            </Style>
+
+            <Style TargetType="{x:Type controls:ExtendedDatePicker}" BasedOn="{StaticResource Xamarin.Forms.DatePicker}">
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+            </Style>
+
+            <Style TargetType="{x:Type ffimageloading:CachedImage}">
+                <Setter Property="DownsampleToViewSize" Value="true" />
+                <Setter Property="TransparencyEnabled" Value="false" />
+                <Setter Property="DownsampleWidth" Value="640"/>
+                <Setter Property="DownsampleHeight" Value="480"/>
+            </Style>
+
+            <Style TargetType="{x:Type ActivityIndicator}">
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="WidthRequest" Value="100"/>
+                <Setter Property="Color" Value="{StaticResource AccentColor}"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

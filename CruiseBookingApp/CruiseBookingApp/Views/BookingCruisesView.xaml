@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="CruiseBookingApp.Views.BookingCruisesView"
+             xmlns:controls="clr-namespace:CruiseBookingApp.Controls"
+             xmlns:templates="clr-namespace:CruiseBookingApp.Views.Templates;"
+             xmlns:utils="clr-namespace:CruiseBookingApp.Utils"
+             xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- ANIMATIONS -->
+            <xamanimation:FadeToAnimation 
+                x:Key="FadeOutAnimation" Target="{x:Reference LoadingLayout}"
+                Duration="500" Opacity="0"/>
+        </ResourceDictionary>
+    </ContentPage.Resources> 
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <controls:ExtendedListView HasUnevenRows="true"
+                      BackgroundColor="{StaticResource BackgroundColor}"
+                      ItemsSource="{Binding CruiseGroups}" 
+                      IsGroupingEnabled="true"
+                      utils:ItemTappedAttached.Command="{Binding TappedCommand}"
+                      AbsoluteLayout.LayoutBounds="0,0,1,1"
+                      AbsoluteLayout.LayoutFlags="All">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <templates:BookingCruisesGroupHeaderTemplate />
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:BookingCruiseItemTemplate/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:ExtendedListView>
+            <controls:LoadingLayout x:Name="LoadingLayout"
+                                    OnCompletedAnimation="{StaticResource FadeOutAnimation}"
+                                    IsRunning="{Binding IsBusy}" BackgroundColor="White" 
+                                    VerticalOptions="FillAndExpand"
+                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                    AbsoluteLayout.LayoutFlags="All"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="CruiseBookingApp.Views.HomeView"
+    xmlns:behaviors="clr-namespace:Corcav.Behaviors;assembly=Corcav.Behaviors"
+    xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+    xmlns:controls="clr-namespace:CruiseBookingApp.Controls"  
+    xmlns:extensions="clr-namespace:CruiseBookingApp.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
+    xmlns:templates="clr-namespace:CruiseBookingApp.Views.Templates;"  
+    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- ANIMATIONS -->
+            <xamanimation:FadeToAnimation 
+                x:Key="FadeOutAnimation" Target="{x:Reference LoadingLayout}"
+                Duration="500" Opacity="0"/>
+        </ResourceDictionary>
+    </ContentPage.Resources> 
+    <ContentPage.ToolbarItems>
+        <iconize:IconToolbarItem Icon="md-more-vert" IconColor="White" Command="{Binding SecondaryMenuCommand}" />
+    </ContentPage.ToolbarItems>
+	<ContentPage.Content>
+        <AbsoluteLayout>
+            <controls:ExtendedListView
+                x:Name="ExtendedListView"
+                BackgroundColor="{StaticResource BackgroundColor}"
+                HasUnevenRows="true" SeparatorVisibility="None"
+                ItemsSource="{Binding FirstViewCategoryItems}"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All">
+                <controls:ExtendedListView.Header>
+                    <StackLayout Spacing="0">
+                        <carousel:CarouselViewControl
+                            Orientation="Horizontal" 
+                            InterPageSpacing="0" 
+                            ShowIndicators="True"
+                            ShowArrows="True"
+                            HeightRequest="200"
+                            CurrentPageIndicatorTintColor="{StaticResource WhiteColor}"
+                            ItemsSource="{Binding FirstViewBannerItems}">
+                            <carousel:CarouselViewControl.ItemTemplate>
+                                <DataTemplate>
+                                    <templates:FirstViewBannerItemTemplate />
+                                </DataTemplate>
+                            </carousel:CarouselViewControl.ItemTemplate>
+                        </carousel:CarouselViewControl>
+                        <controls:ExtendedButton 
+                            Text="BOOK YOUR CRUISE NOW!" Icon="md-directions-boat"
+                            IconColor="#FF5050" CornerRadius="0" Padding="16"
+                            Command="{Binding BookACruiseCommand}">
+                            <controls:ExtendedButton.Margin>
+                                <OnPlatform x:TypeArguments="Thickness" Android="-5,-6,-5,-7" />
+                            </controls:ExtendedButton.Margin>
+                        </controls:ExtendedButton>
+                    </StackLayout>
+                </controls:ExtendedListView.Header>
+                <controls:ExtendedListView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:FirstViewCategoryItemsTemplate />
+                    </DataTemplate>
+                </controls:ExtendedListView.ItemTemplate>
+                <controls:ExtendedListView.Footer>
+                    <BoxView HeightRequest="16"/>
+                </controls:ExtendedListView.Footer>
+            </controls:ExtendedListView>
+            <controls:LoadingLayout x:Name="LoadingLayout"
+                                    OnCompletedAnimation="{StaticResource FadeOutAnimation}" 
+                                    IsRunning="{Binding IsBusy}" BackgroundColor="White"
+                                    VerticalOptions="FillAndExpand"
+                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                    AbsoluteLayout.LayoutFlags="All"/>
+        </AbsoluteLayout>
+	</ContentPage.Content>
+</ContentPage>

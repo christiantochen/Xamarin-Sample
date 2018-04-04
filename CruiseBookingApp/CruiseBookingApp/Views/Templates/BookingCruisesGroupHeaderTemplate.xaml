@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+          x:Class="CruiseBookingApp.Views.Templates.BookingCruisesGroupHeaderTemplate">
+    <StackLayout Orientation="Horizontal" Padding="16"
+                 BackgroundColor="{StaticResource AccentColor}"
+                 VerticalOptions="FillAndExpand">
+        <Label Text="{Binding DepartureDate, StringFormat='{0:dd MMM yyyy}'}"
+               TextColor="{StaticResource WhiteColor}"
+               FontSize="{StaticResource MediumSize}"/>
+    </StackLayout>
+</ViewCell>

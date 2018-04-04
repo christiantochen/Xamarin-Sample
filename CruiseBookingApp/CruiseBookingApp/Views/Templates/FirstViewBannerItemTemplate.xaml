@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="CruiseBookingApp.Views.Templates.FirstViewBannerItemTemplate"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+	<ContentView.Content>
+        <ffimageloading:CachedImage
+            x:Name="cachedImage"
+            Aspect="AspectFill" 
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            Source="{Binding .}">
+        </ffimageloading:CachedImage>
+	</ContentView.Content>
+</ContentView>
