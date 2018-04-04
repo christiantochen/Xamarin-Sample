@@ -1,3 +1,3 @@
 # Xamarin-Sample
 
-## Detail Coming Soon!
+## Details Coming Soon!
