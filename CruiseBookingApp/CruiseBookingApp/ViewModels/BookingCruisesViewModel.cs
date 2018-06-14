@@ -49,7 +49,7 @@ namespace CruiseBookingApp.ViewModels
                     var results = await _cruiseService.GetCruisesAsync(origin, destination, departureDate ?? DateTime.Today);
                     results.ForEach((c) => CruiseGroups.Add(c));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }

@@ -20,7 +20,6 @@
     <PackageReference Include="Xam.FormsPlugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.0-pre5" />
-    <PackageReference Include="Xam.Plugins.TextToSpeech" Version="3.3.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -81,8 +80,5 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Templates\FirstViewCategoryItemsTemplate.xaml.cs">
       <DependentUpon>FirstViewCategoryItemsTemplate.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove=".DS_Store" />
   </ItemGroup>
 </Project>

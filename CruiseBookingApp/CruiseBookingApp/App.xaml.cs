@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Plugin.TextToSpeech;
-using Plugin.TextToSpeech.Abstractions;
 using Xamarin.Forms;
 using CruiseBookingApp.Services.Device;
 using CruiseBookingApp.Services.Native;
@@ -14,7 +12,6 @@ namespace CruiseBookingApp
     {
         public static IDeviceService DeviceService => DependencyService.Get<IDeviceService>();
         public static INativeService NativeService => DependencyService.Get<INativeService>();
-        public static ITextToSpeech TextToSpeech => CrossTextToSpeech.Current;
 
         static App() => BuildDependencies();
 
@@ -33,23 +30,9 @@ namespace CruiseBookingApp
             Locator.Instance.Build();
         }
 
-        protected override async void OnStart()
+        protected override void OnStart()
         {
-            return;
-
-            CrossLocale selectedCrossLocale;
-
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                var installedLanguages = await TextToSpeech.GetInstalledLanguages();
-                selectedCrossLocale = installedLanguages.FirstOrDefault((c) => c.ToString() == "in-ID");
-            }
-            else
-            {
-                selectedCrossLocale = new CrossLocale { Language = "in-ID" };
-            }
-
-            await TextToSpeech.Speak("Selamat datang di aplikasi pelni", selectedCrossLocale);
+            // Handle when your app starts
         }
 
         protected override void OnSleep()

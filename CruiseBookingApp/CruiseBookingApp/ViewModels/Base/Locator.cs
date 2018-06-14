@@ -89,10 +89,10 @@ namespace CruiseBookingApp.ViewModels.Base
 
         public object Resolve(Type type) => _container.Resolve(type);
 
-        public void Register<TInterface, TImplementation>() where TImplementation : TInterface
+        public void RegisterService<TInterface, TImplementation>() where TImplementation : TInterface
             => _containerBuilder.RegisterType<TImplementation>().As<TInterface>();
 
-        public void Register<T>() where T : class => _containerBuilder.RegisterType<T>();
+        public void RegisterView<T>() where T : class => _containerBuilder.RegisterType<T>();
 
         public void Build() => _container = _containerBuilder.Build();
     }

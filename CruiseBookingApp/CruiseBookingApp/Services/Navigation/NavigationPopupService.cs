@@ -20,7 +20,7 @@ namespace CruiseBookingApp.Services.Navigation
 
             if (page is PopupPage)
             {
-                await PopupNavigation.PushAsync(page as PopupPage, animate);
+                await PopupNavigation.Instance.PushAsync(page as PopupPage, animate);
             }
             else
             {

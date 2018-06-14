@@ -54,9 +54,6 @@
     <Reference Include="FFImageLoading.Platform">
       <HintPath>..\packages\Xamarin.FFImageLoading.2.3.4\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="FFImageLoading.Forms">
-      <HintPath>..\packages\Xamarin.FFImageLoading.Forms.2.3.4\lib\MonoAndroid10\FFImageLoading.Forms.dll</HintPath>
-    </Reference>
     <Reference Include="FFImageLoading.Forms.Droid">
       <HintPath>..\packages\Xamarin.FFImageLoading.Forms.2.3.4\lib\MonoAndroid10\FFImageLoading.Forms.Droid.dll</HintPath>
     </Reference>
@@ -211,11 +208,8 @@
     <Reference Include="Plugin.CurrentActivity">
       <HintPath>..\packages\Plugin.CurrentActivity.1.0.1\lib\MonoAndroid10\Plugin.CurrentActivity.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.TextToSpeech.Abstractions">
-      <HintPath>..\packages\Xam.Plugins.TextToSpeech.3.3.2\lib\MonoAndroid10\Plugin.TextToSpeech.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.TextToSpeech">
-      <HintPath>..\packages\Xam.Plugins.TextToSpeech.3.3.2\lib\MonoAndroid10\Plugin.TextToSpeech.dll</HintPath>
+    <Reference Include="FFImageLoading.Forms">
+      <HintPath>..\packages\Xamarin.FFImageLoading.Forms.2.3.4\lib\MonoAndroid10\FFImageLoading.Forms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

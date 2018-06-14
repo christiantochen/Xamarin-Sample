@@ -35,7 +35,7 @@ namespace CruiseBookingApp.Services.Request
             return PostAsync<TResult, TResult>(uri, data, token);
         }
 
-        public async Task<TResult> PostAsync<TRequest, TResult>(string uri, TRequest data, string token = "")
+        public Task<TResult> PostAsync<TRequest, TResult>(string uri, TRequest data, string token = "")
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,7 @@ namespace CruiseBookingApp.Services.Request
             return PutAsync<TResult, TResult>(uri, data, token);
         }
 
-        public async Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest data, string token = "")
+        public Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest data, string token = "")
         {
             throw new NotImplementedException();
         }
