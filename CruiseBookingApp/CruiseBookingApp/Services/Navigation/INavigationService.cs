@@ -8,13 +8,9 @@ namespace CruiseBookingApp.Services.Navigation
     {
         Task InitializeAsync();
 
-        Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase;
+        Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : ViewModelBase;
 
-        Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : ViewModelBase;
-
-        Task NavigateToAsync(Type viewModelType);
-
-        Task NavigateToAsync(Type viewModelType, object parameter);
+        Task NavigateToAsync(Type viewModelType, object parameter = null);
 
         Task NavigateBackAsync();
 

@@ -10,90 +10,102 @@ using CruiseBookingApp.Services.Navigation;
 using CruiseBookingApp.Services.Port;
 using CruiseBookingApp.Services.Promotion;
 using CruiseBookingApp.Views;
+using Xamarin.Forms;
 
 namespace CruiseBookingApp.ViewModels.Base
 {
     public class Locator
     {
-        IContainer _container;
-        ContainerBuilder _containerBuilder;
+        //private static Locator instance;
+        private static Lazy<Locator> lazyInstance = new Lazy<Locator>(() => new Locator(), true);
+        //public static Locator Instance => instance ?? (instance = new Locator());
+        public static Locator Instance => lazyInstance.Value;
 
-        static readonly Locator _instance = new Locator();
+        private IContainer container;
+        private readonly ContainerBuilder containerBuilder = new ContainerBuilder();
+        private readonly Dictionary<Type, Type> mappings = new Dictionary<Type, Type>();
 
-        public static Locator Instance
+        private Locator()
         {
-            get
-            {
-                return _instance;
-            }
+            RegisterAppViews();
+            RegisterAppServices();
         }
 
-        readonly Dictionary<Type, Type> _mappings;
-        public Dictionary<Type, Type> Mappings => _mappings;
-
-        public Locator()
+        void RegisterAppViews()
         {
-            _mappings = new Dictionary<Type, Type>();
-            CreatePageViewModelMappings();
-
-            _containerBuilder = new ContainerBuilder();
-            CreateAppContainerBuilder();
+            // app
+            RegisterView<AccountView, AccountViewModel>();
+            RegisterView<BookingView, BookingViewModel>();
+            RegisterView<BookingCruiseView, BookingCruiseViewModel>();
+            RegisterView<BookingCruisesView, BookingCruisesViewModel>();
+            RegisterView<HomeView, HomeViewModel>();
+            RegisterView<LoginView, LoginViewModel>();
+            RegisterView<MainView, MainViewModel>();
+            // popup
+            RegisterView<PickerPopup, PickerPopupModel>();
+            RegisterView<TopMenuPopup, TopMenuPopupModel>();
+            // default
+            RegisterView<DefaultView, DefaultViewModel>();
         }
 
-        void CreatePageViewModelMappings()
+        void RegisterAppServices()
         {
-            _mappings.Add(typeof(AccountViewModel), typeof(AccountView));
-            _mappings.Add(typeof(BookingViewModel), typeof(BookingView));
-            _mappings.Add(typeof(BookingCruiseViewModel), typeof(BookingCruiseView));
-            _mappings.Add(typeof(BookingCruisesViewModel), typeof(BookingCruisesView));
-            _mappings.Add(typeof(HomeViewModel), typeof(HomeView));
-            _mappings.Add(typeof(LoginViewModel), typeof(LoginView));
-            _mappings.Add(typeof(MainViewModel), typeof(MainView));
-
-            _mappings.Add(typeof(PickerPopupModel), typeof(PickerPopup));
-            _mappings.Add(typeof(TopMenuPopupModel), typeof(TopMenuPopup));
-
-            _mappings.Add(typeof(DefaultViewModel), typeof(DefaultView));
-        }
-
-        void CreateAppContainerBuilder()
-        {
-            // Services
-            _containerBuilder.RegisterType<NavigationService>().As<INavigationService>();
-            _containerBuilder.RegisterType<DialogService>().As<IDialogService>();
+            RegisterService<INavigationService, NavigationService>();
+            RegisterService<IDialogService, DialogService>();
 
             if (AppSettings.UseFakes)
             {
-                _containerBuilder.RegisterType<FakeAuthenticationService>().As<IAuthenticationService>();
-                _containerBuilder.RegisterType<FakeCruiseService>().As<ICruiseService>();
-                _containerBuilder.RegisterType<FakePortService>().As<IPortService>();
-                _containerBuilder.RegisterType<FakePromotionService>().As<IPromotionService>();
+                RegisterService<IAuthenticationService, FakeAuthenticationService>();
+                RegisterService<ICruiseService, FakeCruiseService>();
+                RegisterService<IPortService, FakePortService>();
+                RegisterService<IPromotionService, FakePromotionService>();
             }
-
-            // ViewModels
-            _containerBuilder.RegisterType<AccountViewModel>();
-            _containerBuilder.RegisterType<BookingViewModel>();
-            _containerBuilder.RegisterType<BookingCruiseViewModel>();
-            _containerBuilder.RegisterType<BookingCruisesViewModel>();
-            _containerBuilder.RegisterType<HomeViewModel>();
-            _containerBuilder.RegisterType<LoginViewModel>();
-            _containerBuilder.RegisterType<MainViewModel>();
-
-            _containerBuilder.RegisterType<PickerPopupModel>();
-            _containerBuilder.RegisterType<TopMenuPopupModel>();
-
-            _containerBuilder.RegisterType<DefaultViewModel>();
         }
 
-        public T Resolve<T>() => _container.Resolve<T>();
+        public T Resolve<T>() => container.Resolve<T>();
 
-        public object Resolve(Type type) => _container.Resolve(type);
+        public object Resolve(Type type) => container.Resolve(type);
 
         public void RegisterService<TInterface, TImplementation>() where TImplementation : TInterface
-            => _containerBuilder.RegisterType<TImplementation>().As<TInterface>();
+            => containerBuilder.RegisterType<TImplementation>().As<TInterface>();
 
-        public void RegisterView<T>() where T : class => _containerBuilder.RegisterType<T>();
+        public void RegisterView<TView, TViewModel>()
+            where TView : Page
+            where TViewModel : ViewModelBase
+        {
+            containerBuilder.RegisterType<TViewModel>();
+            mappings.Add(typeof(TViewModel), typeof(TView));
+        }
 
-        public void Build() => _container = _containerBuilder.Build();
+        public void Build() => container = containerBuilder.Build();
+
+        public Page GetView<TViewModel>() where TViewModel : ViewModelBase => GetView(typeof(TViewModel));
+
+        public Page GetView(Type viewModelType)
+        {
+            var pageType = GetPageTypeForViewModel(viewModelType);
+
+            if (pageType == null)
+                throw new Exception($"Mapping type for {viewModelType} is not a page");
+
+            var page = Activator.CreateInstance(pageType) as Page;
+            var viewModel = Resolve(viewModelType) as ViewModelBase;
+            page.BindingContext = viewModel;
+
+            return page;
+        }
+
+        private Type GetPageTypeForViewModel(Type viewModelType)
+        {
+            if (!mappings.ContainsKey(viewModelType))
+                throw new KeyNotFoundException($"No map for ${viewModelType} was found on mappings");
+
+            return mappings[viewModelType];
+        }
+
+        private Type GetPageTypeForViewModel<TViewModel>() where TViewModel : ViewModelBase
+        {
+            return GetPageTypeForViewModel(typeof(TViewModel));
+        }
     }
 }
