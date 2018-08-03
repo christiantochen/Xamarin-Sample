@@ -19,13 +19,13 @@ namespace CruiseBookingApp.ViewModels
             return base.InitializeAsync(navigationData);
         }
 
-        public User User => AppSettings.User;
+        public User User => App.Settings.User;
 
         public ICommand LogoutCommand => new AsyncCommand(Logout);
 
         Task Logout(object obj)
         {
-            AppSettings.RemoveUserData();
+            App.Settings.RemoveUserData();
 
             return NavigationService.NavigateToAsync<LoginViewModel>();
         }

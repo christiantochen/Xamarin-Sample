@@ -14,7 +14,7 @@ namespace CruiseBookingApp.PopupModels
 
         Task Logout(object obj)
         {
-            AppSettings.RemoveUserData();
+            App.Settings.RemoveUserData();
 
             return Task.WhenAll(
                 NavigationService.NavigateToAsync<LoginViewModel>(),

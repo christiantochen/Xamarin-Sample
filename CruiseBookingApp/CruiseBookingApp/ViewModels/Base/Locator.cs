@@ -53,7 +53,7 @@ namespace CruiseBookingApp.ViewModels.Base
             RegisterService<INavigationService, NavigationService>();
             RegisterService<IDialogService, DialogService>();
 
-            if (AppSettings.UseFakes)
+            if (App.Settings.UseFakes)
             {
                 RegisterService<IAuthenticationService, FakeAuthenticationService>();
                 RegisterService<ICruiseService, FakeCruiseService>();
