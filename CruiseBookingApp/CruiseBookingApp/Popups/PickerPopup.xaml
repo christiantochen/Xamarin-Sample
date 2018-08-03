@@ -5,8 +5,8 @@
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              xmlns:controls="clr-namespace:CruiseBookingApp.Controls"  
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             Padding="16"
-             CloseWhenBackgroundIsClicked="true">
+             CloseWhenBackgroundIsClicked="true"
+             Padding="16">
     <pages:PopupPage.Content>
         <StackLayout BackgroundColor="{StaticResource WhiteColor}" Padding="16">
             <Label Text="{Binding Title}" FontSize="{StaticResource LargeSize}" FontFamily="{StaticResource RobotoBold}"/>

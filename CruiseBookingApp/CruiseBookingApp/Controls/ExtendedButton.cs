@@ -5,8 +5,11 @@ namespace CruiseBookingApp.Controls
 {
     public class ExtendedButton : Button
     {
+
+#if __ANDROID__
         const double defaultAndroidMarginHorizontalSize = -4;
         const double defaultAndroidMarginVerticalSize = -6;
+#endif
 
         public ExtendedButton()
         {
@@ -90,7 +93,7 @@ namespace CruiseBookingApp.Controls
                     TextAlignment == TextAlignment.End)
                 {
                     // HACK: IsDefault margin then reset it to 0
-                    if (Margin == new Thickness(-4, -6))
+                    if (new Thickness(defaultAndroidMarginHorizontalSize, defaultAndroidMarginVerticalSize))
                         Margin = new Thickness(0);
                 }
             }

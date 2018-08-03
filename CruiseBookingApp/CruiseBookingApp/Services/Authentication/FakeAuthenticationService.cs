@@ -6,9 +6,9 @@ namespace CruiseBookingApp.Services.Authentication
 {
     public class FakeAuthenticationService : IAuthenticationService
     {
-        public bool IsAuthenticated => AppSettings.User != null;
+        public bool IsAuthenticated => App.Settings.User != null;
 
-        public User AuthenticatedUser => AppSettings.User;
+        public User AuthenticatedUser => App.Settings.User;
 
         public Task<bool> LoginAsync(string email, string password)
         {
@@ -20,14 +20,14 @@ namespace CruiseBookingApp.Services.Authentication
                 PhoneNumber = "087779997721"
             };
 
-            AppSettings.User = user;
+            App.Settings.User = user;
 
             return Task.FromResult(true);
         }
 
         public Task LogoutAsync()
         {
-            AppSettings.RemoveUserData();
+            App.Settings.RemoveUserData();
 
             return Task.FromResult(true);
         }

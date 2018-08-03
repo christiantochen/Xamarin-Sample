@@ -25,7 +25,7 @@ namespace CruiseBookingApp
 
         static void BuildDependencies()
         {
-            AppSettings.UseFakes = true;
+            Settings.UseFakes = true;
 
             Locator.Instance.Build();
         }
